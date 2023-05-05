@@ -3,12 +3,12 @@ package com.github.agoss94.track.manager;
 import java.time.Duration;
 
 /**
- * This class represent a talk. A talk has a title and a duration.
+ * This class represent an event. A event has a title and a duration.
  */
-public class Talk {
+public class Event {
 
 	/**
-	 * The title of the talk.
+	 * The title of the event.
 	 */
 	private final String title;
 
@@ -22,9 +22,10 @@ public class Talk {
 	 * duration.
 	 *
 	 * @param title    the title of the talk.
-	 * @param duration the duration of the talk.
+	 * @param duration the duration of the talk. The duration may be {@code null},
+	 *                 which signals that the event is open ended.
 	 */
-	public Talk(String title, Duration duration) {
+	public Event(String title, Duration duration) {
 		this.title = title;
 		this.duration = duration;
 	}
