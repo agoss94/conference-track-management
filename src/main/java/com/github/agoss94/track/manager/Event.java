@@ -1,9 +1,11 @@
 package com.github.agoss94.track.manager;
 
 import java.time.Duration;
+import java.util.Objects;
 
 /**
- * This class represent an event. A event has a title and a duration.
+ * This class represent an event. A event has a title and a duration. The
+ * duration may be {@code null} if the event is open end.
  */
 public class Event {
 
@@ -31,17 +33,52 @@ public class Event {
     }
 
     /**
-     * @return the title
+     * Returns the title title of the event.
+     *
+     * @return the title title of the event.
      */
     public String getTitle() {
         return title;
     }
 
     /**
-     * @return the duration
+     * Returns the duration of the event.
+     *
+     * @return the duration of the event.
      */
     public Duration getDuration() {
         return duration;
     }
 
+    /**
+     * Returns {@code true} if the event is open end.
+     *
+     * @return {@code true} if the event is open end.
+     */
+    public boolean isOpenEnd() {
+        return duration == null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(duration, title);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Event other = (Event) obj;
+        return Objects.equals(duration, other.duration) && Objects.equals(title, other.title);
+    }
 }
