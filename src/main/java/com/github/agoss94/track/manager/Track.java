@@ -31,7 +31,11 @@ public class Track {
      * @param start the start time.
      * @param e     the event.
      * @return the previously associated event.
-     * @throws NullPointerException if the start time or event is {@code null}.
+     * @throws NullPointerException   if the start time or event is {@code null}.
+     * @throws PreviousEventException if a previous event still blocks the start
+     *                                time.
+     * @throws FutureEventException   if a future evnt starts before the given event
+     *                                is over.
      */
     public void put(LocalTime start, Event e) {
         Objects.requireNonNull(start);
