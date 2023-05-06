@@ -26,10 +26,23 @@ public class Event {
      * @param title    the title of the talk.
      * @param duration the duration of the talk. The duration may be {@code null},
      *                 which signals that the event is open ended.
+     * @throws NullPointerException if the title is {@code null}.
      */
     public Event(String title, Duration duration) {
-        this.title = title;
+        this.title = Objects.requireNonNull(title);
         this.duration = duration;
+    }
+
+    /**
+     * Simple constructor creates a Talk object with the given title and specified
+     * duration.
+     *
+     * @param title    the title of the talk.
+     * @param duration the duration of the talk. The duration may be {@code null},
+     *                 which signals that the event is open ended.
+     */
+    public Event(String title) {
+        this(title, null);
     }
 
     /**
