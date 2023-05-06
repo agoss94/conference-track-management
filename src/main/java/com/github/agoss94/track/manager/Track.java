@@ -1,5 +1,6 @@
 package com.github.agoss94.track.manager;
 
+import java.time.Duration;
 import java.time.LocalTime;
 import java.util.NavigableMap;
 import java.util.Objects;
@@ -36,6 +37,20 @@ public class Track {
         Objects.requireNonNull(start);
         Objects.requireNonNull(e);
         return track.put(start, e);
+    }
+
+    /**
+     * Returns the duration for which an event, which has started prior, is still
+     * ongoing.
+     *
+     * @param time the given time.
+     * @return the duration for which an event, which has started prior, is still
+     *         ongoing.
+     * @throws NullPointerException if time is {@code null}.
+     */
+    public Duration ongoingUntil(LocalTime time) {
+        Objects.requireNonNull(time);
+        return null;
     }
 
 }
