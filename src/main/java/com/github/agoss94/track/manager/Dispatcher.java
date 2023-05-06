@@ -8,11 +8,12 @@ import java.util.Collection;
 public interface Dispatcher {
 
     /**
-     * Dispatches the collection of events to the given track.
+     * Dispatches the collection of events to a track. We assume that all
+     * Events in the collection have a finite duration (no Event is open end).
      *
-     * @param track  a given track.
      * @param events a collection of events.
+     * @throws NullPointerException if events is {@code null}.
      */
-    void dispatch(Track track, Collection<Event> events);
+    Track dispatch(Collection<Event> events);
 
 }
