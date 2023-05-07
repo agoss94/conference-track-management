@@ -24,6 +24,7 @@ public class TextInputReaderTest {
                 new Event("Lua for the Masses", Duration.ofMinutes(30)),
                 new Event("Ruby Errors from Mismatched Gem Versions", Duration.ofMinutes(45)),
                 new Event("Common Ruby Errors", Duration.ofMinutes(45)),
+                new Event("Rails for Python Developers", Duration.ofMinutes(5)),
                 new Event("Communicating Over Distance", Duration.ofMinutes(60)),
                 new Event("Accounting-Driven Development", Duration.ofMinutes(45)),
                 new Event("Woah", Duration.ofMinutes(30)),

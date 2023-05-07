@@ -22,6 +22,8 @@ public class TextInputReader {
      */
     private static final Pattern PATTERN_DIGITS = Pattern.compile("\\d+");
 
+    private static final Pattern PATTERN_LIGHTNING = Pattern.compile("lightning");
+
     /**
      * Reads the given input file line by line. Empty lines are ignored. We assume
      * that the duration of the event and the title is separated by a single space.
@@ -38,11 +40,15 @@ public class TextInputReader {
         List<Event> events = new ArrayList<>();
         for (String line : lines) {
             if (!line.isBlank()) {
-                Matcher matcher = PATTERN_DIGITS.matcher(line);
-                if (matcher.find()) {
-                    int min = Integer.parseInt(matcher.group());
-                    String title = line.substring(0, matcher.start() - 1);
+                Matcher matcherDigits = PATTERN_DIGITS.matcher(line);
+                Matcher matcherLightning = PATTERN_LIGHTNING.matcher(line);
+                if (matcherDigits.find()) {
+                    int min = Integer.parseInt(matcherDigits.group());
+                    String title = line.substring(0, matcherDigits.start() - 1);
                     events.add(new Event(title, Duration.ofMinutes(min)));
+                } else if(matcherLightning.find()) {
+                    String title = line.substring(0, matcherLightning.start() - 1);
+                    events.add(new Event(title, Duration.ofMinutes(5)));
                 }
             }
         }
