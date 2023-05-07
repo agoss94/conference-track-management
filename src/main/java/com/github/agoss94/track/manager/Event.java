@@ -78,11 +78,17 @@ public class Event {
         return duration == null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode() {
         return Objects.hash(duration, title);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -95,6 +101,9 @@ public class Event {
         return Objects.equals(duration, other.duration) && Objects.equals(title, other.title);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return isOpenEnd() ? title : String.format("%s %smin", title, duration.toMinutes());
