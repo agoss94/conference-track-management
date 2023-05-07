@@ -3,6 +3,7 @@ package com.github.agoss94.track.manager;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Duration;
@@ -14,9 +15,8 @@ import org.junit.jupiter.api.Test;
 public class TextInputReaderTest {
 
     @Test
-    void readInput() throws IOException {
-        Path pathToFile = Paths.get(System.getProperty("user.dir"), "src", "test", "java", "com", "github", "agoss94", "track", "manager",
-                "Events.txt");
+    void readInput() throws IOException, URISyntaxException {
+        Path pathToFile = Paths.get(TextInputReaderTest.class.getResource("Events.txt").toURI());
         TextInputReader reader = new TextInputReader();
         List<Event> expected =List.of(
                 new Event("Writing Fast Tests Against Enterprise Rails", Duration.ofMinutes(60)),
