@@ -34,7 +34,7 @@ public class ConferenceDispatcher implements Dispatcher {
         LocalTime end = track.end();
         LocalTime networkingStart = end.isBefore(LocalTime.of(16, 0)) ? LocalTime.of(16, 0) : end;
         track.put(networkingStart, new Event("Networking Event"));
-        events.removeAll(afternoonSession.allEvents());
+        events.removeAll(afternoonSession.values());
 
         //Morning events
         Track morningsSession = dispatcherMorning.dispatch(events);

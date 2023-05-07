@@ -1,6 +1,9 @@
 package com.github.agoss94.track.manager;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.time.Duration;
+import java.time.LocalTime;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -31,7 +34,11 @@ public class ConferenceDispatcherTest {
                                 new Event("User Interface CSS in Rails Apps", Duration.ofMinutes(30))
                             );
         Dispatcher dispatcher = new ConferenceDispatcher();
-        System.out.println(dispatcher.dispatch(events));
+        Track track =  dispatcher.dispatch(events);
+        Event lunch = track.get(LocalTime.of(12, 0));
+        Event networking = track.get(LocalTime.of(17, 0));
+        assertEquals("Lunch", lunch.getTitle());
+        assertEquals("Networking Event", networking.getTitle());
     }
 
 }
