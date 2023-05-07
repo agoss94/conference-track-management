@@ -1,6 +1,7 @@
 package com.github.agoss94.track.manager;
 
 import java.time.Duration;
+import java.util.Comparator;
 import java.util.Objects;
 
 /**
@@ -8,6 +9,11 @@ import java.util.Objects;
  * duration may be {@code null} if the event is open end.
  */
 public class Event {
+
+    /**
+     * Comparator for comparing events by duration.
+     */
+    public static final Comparator<Event> COMPARATOR = (a, b) -> a.getDuration().compareTo(b.getDuration());
 
     /**
      * The title of the event.
