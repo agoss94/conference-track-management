@@ -35,8 +35,8 @@ public class Track {
      * @throws NullPointerException   if the start time or event is {@code null}.
      * @throws PreviousEventException if a previous event still blocks the start
      *                                time.
-     * @throws FutureEventException   if a future evnt starts before the given event
-     *                                is over.
+     * @throws FutureEventException   if a future event starts before the given
+     *                                event is over.
      */
     public void put(LocalTime start, Event e) {
         Objects.requireNonNull(start);
@@ -112,6 +112,22 @@ public class Track {
      */
     public Duration length() {
         return isEmpty() ? Duration.ZERO : Duration.between(track.firstKey(), end());
+    }
+
+    /**
+     * Put all events of the given track in this track.
+     *
+     * @param track the given track.
+     * @throws NullPointerException   if track is {@code null}.
+     * @throws PreviousEventException if a previous event still blocks the start
+     *                                time.
+     * @throws FutureEventException   if a future event starts before the given
+     *                                event is over.
+     */
+    public void putAll(Track track) {
+        for (Entry<LocalTime, Event> entry : track.track.entrySet()) {
+            put(entry.getKey(), entry.getValue());
+        }
     }
 
     /**
