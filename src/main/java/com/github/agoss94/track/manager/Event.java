@@ -79,4 +79,9 @@ public class Event {
     public int hashCode() {
         return Objects.hash(duration, title);
     }
+
+    @Override
+    public String toString() {
+        return isOpenEnd() ? title : String.format("%s %smin", title, duration.toMinutes());
+    }
 }

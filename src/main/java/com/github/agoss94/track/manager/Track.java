@@ -3,6 +3,7 @@ package com.github.agoss94.track.manager;
 import java.time.Duration;
 import java.time.LocalTime;
 import java.util.Map.Entry;
+import java.util.Collection;
 import java.util.NavigableMap;
 import java.util.Objects;
 import java.util.TreeMap;
@@ -128,6 +129,15 @@ public class Track {
         for (Entry<LocalTime, Event> entry : track.track.entrySet()) {
             put(entry.getKey(), entry.getValue());
         }
+    }
+
+    /**
+     * Returns the duration of the event.
+     *
+     * @return the duration of the event.
+     */
+    public Collection<Event> allEvents() {
+        return track.values();
     }
 
     /**
