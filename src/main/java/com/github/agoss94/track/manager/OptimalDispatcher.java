@@ -83,15 +83,16 @@ public class OptimalDispatcher implements Dispatcher {
     public Track dispatch(Collection<Event> collection) {
         Objects.requireNonNull(collection);
         events = Collections.unmodifiableList(new ArrayList<>(collection));
-        int[] fullSet = new int[collection.size()];
-        Arrays.fill(fullSet, 1);
-        subsets = new HashSet<>();
-        subsets.add(fullSet);
 
         // The limit is to small for the collection of events.
         if (events.stream().noneMatch(e -> limit.compareTo(e.getDuration()) >= 1)) {
             throw new IllegalArgumentException("No solution possible.");
         }
+
+        int[] fullSet = new int[collection.size()];
+        Arrays.fill(fullSet, 1);
+        subsets = new HashSet<>();
+        subsets.add(fullSet);
 
         // The loop continues until there is only a set of solution
         // This set must contain an optimal solution.
