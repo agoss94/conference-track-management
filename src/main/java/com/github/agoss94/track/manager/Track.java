@@ -1,5 +1,6 @@
 package com.github.agoss94.track.manager;
 
+import java.time.Duration;
 import java.time.LocalTime;
 import java.util.Map.Entry;
 import java.util.NavigableMap;
@@ -77,5 +78,71 @@ public class Track {
         } else {
             return LocalTime.MIN;
         }
+    }
+
+    /**
+     * Returns {@code true} if the track is empty.
+     *
+     * @return {@code true} if the track is empty.
+     */
+    public boolean isEmpty() {
+        return track.isEmpty();
+    }
+
+    /**
+     * Returns the time at which the track end.
+     *
+     * @return the time at which the track end.
+     */
+    public LocalTime end() {
+        Entry<LocalTime, Event> last = track.lastEntry();
+        if (last != null) {
+            LocalTime start = last.getKey();
+            Event e = last.getValue();
+            return e.isOpenEnd() ? LocalTime.MAX : start.plus(e.getDuration());
+        } else {
+            return LocalTime.MIN;
+        }
+    }
+
+    /**
+     * Returns the time at which the track end.
+     *
+     * @return the time at which the track end.
+     */
+    public Duration length() {
+        return isEmpty() ? Duration.ZERO : Duration.between(track.firstKey(), end());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(track);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Track other = (Track) obj;
+        return Objects.equals(track, other.track);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (Entry<LocalTime, Event> entry : track.entrySet()) {
+            sb.append(String.format("%s %s %n", entry.getKey(), entry.getValue()));
+        }
+        return sb.toString();
     }
 }
