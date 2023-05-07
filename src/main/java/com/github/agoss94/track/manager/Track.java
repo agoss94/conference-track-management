@@ -2,16 +2,17 @@ package com.github.agoss94.track.manager;
 
 import java.time.Duration;
 import java.time.LocalTime;
-import java.util.Map.Entry;
+import java.util.AbstractMap;
 import java.util.NavigableMap;
 import java.util.Objects;
+import java.util.Set;
 import java.util.TreeMap;
 
 /**
  * A track is a timetable of non-overlapping events. As such a track maps points
  * in time to events.
  */
-public class Track {
+public class Track extends AbstractMap<LocalTime, Event> {
 
     /**
      * The timetable is represented by a map.
@@ -38,7 +39,8 @@ public class Track {
      * @throws FutureEventException   if a future event starts before the given
      *                                event is over.
      */
-    public void put(LocalTime start, Event e) {
+    @Override
+    public Event put(LocalTime start, Event e) {
         Objects.requireNonNull(start);
         Objects.requireNonNull(e);
         if (endPrevious(start).isAfter(start)) {
@@ -55,8 +57,14 @@ public class Track {
                                 e.getDuration().toMinutes(), start, nextIn));
             }
         }
-        track.put(start, e);
+        return track.put(start, e);
     }
+
+    @Override
+    public Set<Entry<LocalTime, Event>> entrySet() {
+        return track.entrySet();
+    }
+
 
     /**
      * Returns the end time for the event, which started equal to or directly before
@@ -78,15 +86,6 @@ public class Track {
         } else {
             return LocalTime.MIN;
         }
-    }
-
-    /**
-     * Returns {@code true} if the track is empty.
-     *
-     * @return {@code true} if the track is empty.
-     */
-    public boolean isEmpty() {
-        return track.isEmpty();
     }
 
     /**
@@ -115,44 +114,8 @@ public class Track {
     }
 
     /**
-     * Put all events of the given track in this track.
-     *
-     * @param track the given track.
-     * @throws NullPointerException   if track is {@code null}.
-     * @throws PreviousEventException if a previous event still blocks the start
-     *                                time.
-     * @throws FutureEventException   if a future event starts before the given
-     *                                event is over.
-     */
-    public void putAll(Track track) {
-        for (Entry<LocalTime, Event> entry : track.track.entrySet()) {
-            put(entry.getKey(), entry.getValue());
-        }
-    }
-
-    /**
      * {@inheritDoc}
      */
-    @Override
-    public int hashCode() {
-        return Objects.hash(track);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Track other = (Track) obj;
-        return Objects.equals(track, other.track);
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -160,5 +123,19 @@ public class Track {
             sb.append(String.format("%s %s %n", entry.getKey(), entry.getValue()));
         }
         return sb.toString();
+    }
+
+    /**
+     * Forwarding {@link NavigableMap#higherKey(Object)}
+     */
+    public LocalTime higherKey(LocalTime time) {
+        return track.higherKey(time);
+    }
+
+    /**
+     * Forwarding {@link NavigableMap#ceilingKey(Object)}
+     */
+    public LocalTime ceilingKey(LocalTime time) {
+        return track.ceilingKey(time);
     }
 }

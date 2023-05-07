@@ -14,12 +14,24 @@ import java.util.Set;
 /**
  * The optimal dispatcher finds an optimal solution for a collection of events
  * with a given time constraint. The dispatcher looks for an optimal solution by
- * performing the following algorithm: Assume we have a given list of events.
+ * performing the following algorithm: Assume we have a given list of {@code n}
+ * events.
  * <p>
  * <ol>
  * <li>First we check if the combined duration of all events is a solution. If
- * it is</li>
+ * it we stop the algorithm. If not we proceed with step two.</li>
+ * <li>We construct subset for as follows. Assume a subset s of events is no
+ * solution of the problem. Then we construct subsets with one element less by
+ * removing one event which has an index that is greater than the previous index
+ * of the last removed event of the subset. If a given subset is a solution we
+ * do not regard it any further, as no solution can be optimized by further
+ * taking subsets.
+ * <li>We iterate over step for until only solutions are left. By the logic of
+ * the construction there must be an optimal solution among the set of all
+ * constructed solutions.</li>
  * </ol>
+ * The time complexity of the algorithm is O(2^n), but is more performant if
+ * already a large subsets are possible solutions.
  */
 public class OptimalDispatcher implements Dispatcher {
 
@@ -129,10 +141,13 @@ public class OptimalDispatcher implements Dispatcher {
      */
     private Set<int[]> constructSubsets(int[] subset) {
         Set<int[]> subSets = new HashSet<>();
-        // By setting i = indexLastZero + 1 we can guarantee to not form the same
-        // subset twice. It is easy to see, that all subset constructed from two arrays
-        // with at least one different zero position must therefore mutually distinct.
-        // Equally it is easy to see that every possible subset will we formed.
+        /*
+         * By setting i = indexLastZero + 1 we can guarantee to not form the same subset
+         * twice. It is easy to see, that all subset constructed from two arrays with at
+         * least one different zero position must therefore mutually distinct. Equally
+         * it is easy to see that every possible subset will be formed, if every real
+         * superset is no solution.
+         */
         for (int i = indexLastZero(subset) + 1; i < subset.length; i++) {
             if (subset[i] == 1) {
                 int[] newSubset = subset.clone();
