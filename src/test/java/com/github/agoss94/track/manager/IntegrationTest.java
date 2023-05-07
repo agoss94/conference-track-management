@@ -17,7 +17,7 @@ public class IntegrationTest {
 
     @BeforeEach
     void befor() throws IOException, URISyntaxException {
-        ConferencePlaner.main(new String[] { PATH.toAbsolutePath().toString() });
+        TrackManager.main(new String[] { PATH.toAbsolutePath().toString() });
     }
 
     @Test

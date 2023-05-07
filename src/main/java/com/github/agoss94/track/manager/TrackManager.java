@@ -13,7 +13,7 @@ import java.util.List;
 import com.github.agoss94.track.manager.dispatcher.LazyConferenceDispatcher;
 import com.github.agoss94.track.manager.io.InputReader;
 
-public class ConferencePlaner {
+public class TrackManager {
 
     public static void main(String[] args) throws IOException {
         Path pathToFile = Paths.get(args[0]);
