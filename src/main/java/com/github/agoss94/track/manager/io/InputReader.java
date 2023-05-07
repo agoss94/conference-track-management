@@ -1,4 +1,4 @@
-package com.github.agoss94.track.manager;
+package com.github.agoss94.track.manager.io;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -11,11 +11,13 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.github.agoss94.track.manager.Event;
+
 /**
  * Text input reader reads all Events from a text file and stores the, in a
  * collection.
  */
-public class TextInputReader {
+public class InputReader {
 
     /**
      * Pattern matching only digits.

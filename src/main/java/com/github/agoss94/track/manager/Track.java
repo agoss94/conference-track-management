@@ -1,6 +1,5 @@
 package com.github.agoss94.track.manager;
 
-import java.time.Duration;
 import java.time.LocalTime;
 import java.util.AbstractMap;
 import java.util.NavigableMap;
@@ -33,26 +32,25 @@ public class Track extends AbstractMap<LocalTime, Event> {
      * @param start the start time.
      * @param e     the event.
      * @return the previously associated event.
-     * @throws NullPointerException   if the start time or event is {@code null}.
-     * @throws PreviousEventException if a previous event still blocks the start
-     *                                time.
-     * @throws FutureEventException   if a future event starts before the given
-     *                                event is over.
+     * @throws NullPointerException  if the start time or event is {@code null}.
+     * @throws IllegalStateException if a previous event still blocks the start time
+     *                               or if a future event starts before the given
+     *                               event is over.
      */
     @Override
     public Event put(LocalTime start, Event e) {
         Objects.requireNonNull(start);
         Objects.requireNonNull(e);
         if (endPrevious(start).isAfter(start)) {
-            throw new PreviousEventException(
+            throw new IllegalStateException(
                     "Cannot add event to track. There is an ongoing event until " + endPrevious(start));
         }
         LocalTime nextIn = track.higherKey(start);
         if (nextIn != null) {
             if (e.isOpenEnd()) {
-                throw new FutureEventException("Cannot add an open end event before a future event.");
+                throw new IllegalStateException("Cannot add an open end event before a future event.");
             } else if (nextIn.isBefore(start.plus(e.getDuration()))) {
-                throw new FutureEventException(
+                throw new IllegalStateException(
                         String.format("Cannot add event of %smin at %s, because the next event starts at %s",
                                 e.getDuration().toMinutes(), start, nextIn));
             }
@@ -60,11 +58,20 @@ public class Track extends AbstractMap<LocalTime, Event> {
         return track.put(start, e);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Set<Entry<LocalTime, Event>> entrySet() {
         return track.entrySet();
     }
 
+    /**
+     * Forwarding {@link NavigableMap#ceilingKey(Object)}
+     */
+    public LocalTime ceilingKey(LocalTime time) {
+        return track.ceilingKey(time);
+    }
 
     /**
      * Returns the end time for the event, which started equal to or directly before
@@ -105,15 +112,6 @@ public class Track extends AbstractMap<LocalTime, Event> {
     }
 
     /**
-     * Returns the time at which the track end.
-     *
-     * @return the time at which the track end.
-     */
-    public Duration length() {
-        return isEmpty() ? Duration.ZERO : Duration.between(track.firstKey(), end());
-    }
-
-    /**
      * {@inheritDoc}
      */
     @Override
@@ -125,17 +123,4 @@ public class Track extends AbstractMap<LocalTime, Event> {
         return sb.toString();
     }
 
-    /**
-     * Forwarding {@link NavigableMap#higherKey(Object)}
-     */
-    public LocalTime higherKey(LocalTime time) {
-        return track.higherKey(time);
-    }
-
-    /**
-     * Forwarding {@link NavigableMap#ceilingKey(Object)}
-     */
-    public LocalTime ceilingKey(LocalTime time) {
-        return track.ceilingKey(time);
-    }
 }

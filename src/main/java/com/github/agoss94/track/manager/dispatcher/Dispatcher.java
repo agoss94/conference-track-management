@@ -1,6 +1,9 @@
-package com.github.agoss94.track.manager;
+package com.github.agoss94.track.manager.dispatcher;
 
 import java.util.Collection;
+
+import com.github.agoss94.track.manager.Event;
+import com.github.agoss94.track.manager.Track;
 
 /**
  * A dispatcher dispatches events to a track.

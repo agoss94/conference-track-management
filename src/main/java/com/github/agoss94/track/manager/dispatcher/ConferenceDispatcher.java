@@ -1,4 +1,4 @@
-package com.github.agoss94.track.manager;
+package com.github.agoss94.track.manager.dispatcher;
 
 import java.time.Duration;
 import java.time.LocalTime;
@@ -6,6 +6,9 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+
+import com.github.agoss94.track.manager.Event;
+import com.github.agoss94.track.manager.Track;
 
 public class ConferenceDispatcher implements Dispatcher {
 

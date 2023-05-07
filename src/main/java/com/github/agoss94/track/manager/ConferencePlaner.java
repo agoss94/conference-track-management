@@ -10,11 +10,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import com.github.agoss94.track.manager.dispatcher.LazyConferenceDispatcher;
+import com.github.agoss94.track.manager.io.InputReader;
+
 public class ConferencePlaner {
 
     public static void main(String[] args) throws IOException {
         Path pathToFile = Paths.get(args[0]);
-        TextInputReader reader = new TextInputReader();
+        InputReader reader = new InputReader();
         Collection<Event> events = reader.readFile(pathToFile);
 
         List<Track> tracks = new ArrayList<>();

@@ -42,7 +42,7 @@ public class TrackTest {
     void putThrowsPreviousEventException() {
         assertDoesNotThrow(() -> track.put(LocalTime.of(9, 0), TALK_ONE_HOUR));
         // cannot add talk at same time.
-        PreviousEventException e = assertThrows(PreviousEventException.class,
+        IllegalStateException e = assertThrows(IllegalStateException.class,
                 () -> track.put(LocalTime.of(9, 0), TALK_OPEN_END));
         assertEquals("Cannot add event to track. There is an ongoing event until 10:00", e.getMessage());
         // Talk can be added at the end.
@@ -53,7 +53,7 @@ public class TrackTest {
     void putThrowsFutureEventExceptionForOpenEndEventBeforeOthers() {
         assertDoesNotThrow(() -> track.put(LocalTime.of(11, 0), TALK_ONE_HOUR));
         // cannot add talk at same time.
-        FutureEventException e = assertThrows(FutureEventException.class,
+        IllegalStateException e = assertThrows(IllegalStateException.class,
                 () -> track.put(LocalTime.of(9, 0), TALK_OPEN_END));
         assertEquals("Cannot add an open end event before a future event.", e.getMessage());
         // Talk can be added at the end.
@@ -63,7 +63,7 @@ public class TrackTest {
     void putThrowsFutureEventExceptionForEventsInConflict() {
         assertDoesNotThrow(() -> track.put(LocalTime.of(11, 0), TALK_ONE_HOUR));
         // cannot add talk at same time.
-        FutureEventException e = assertThrows(FutureEventException.class,
+        IllegalStateException e = assertThrows(IllegalStateException.class,
                 () -> track.put(LocalTime.of(10, 30), TALK_ONE_HOUR));
         assertEquals("Cannot add event of 60min at 10:30, because the next event starts at 11:00", e.getMessage());
         // Talk can be added at the end.

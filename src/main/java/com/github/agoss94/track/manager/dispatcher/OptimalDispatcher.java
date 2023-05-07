@@ -1,4 +1,4 @@
-package com.github.agoss94.track.manager;
+package com.github.agoss94.track.manager.dispatcher;
 
 import java.time.Duration;
 import java.time.LocalTime;
@@ -10,6 +10,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+
+import com.github.agoss94.track.manager.Event;
+import com.github.agoss94.track.manager.Track;
 
 /**
  * The optimal dispatcher finds an optimal solution for a collection of events

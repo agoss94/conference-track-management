@@ -13,8 +13,7 @@ import org.junit.jupiter.api.Test;
 
 public class IntegrationTest {
 
-    private static final Path PATH = Paths.get(System.getProperty("user.dir"), "src", "test", "java", "com",
-            "github", "agoss94", "track", "manager", "Events.txt");
+    private static final Path PATH = Paths.get(System.getProperty("user.dir"), "src", "test", "resources", "Events.txt");
 
     @BeforeEach
     void befor() throws IOException, URISyntaxException {

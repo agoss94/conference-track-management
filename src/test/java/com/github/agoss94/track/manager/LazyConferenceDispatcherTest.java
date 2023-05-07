@@ -8,6 +8,9 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import com.github.agoss94.track.manager.dispatcher.Dispatcher;
+import com.github.agoss94.track.manager.dispatcher.LazyConferenceDispatcher;
+
 public class LazyConferenceDispatcherTest {
 
     @Test

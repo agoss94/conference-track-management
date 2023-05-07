@@ -1,4 +1,4 @@
-package com.github.agoss94.track.manager;
+package com.github.agoss94.track.manager.dispatcher;
 
 import java.time.Duration;
 import java.time.LocalTime;
@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+
+import com.github.agoss94.track.manager.Event;
+import com.github.agoss94.track.manager.Track;
 
 /**
  * A lazy implementation of a dispatcher, which tries to add Events as long as

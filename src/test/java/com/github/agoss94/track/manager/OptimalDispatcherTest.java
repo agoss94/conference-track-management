@@ -12,6 +12,9 @@ import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import com.github.agoss94.track.manager.dispatcher.Dispatcher;
+import com.github.agoss94.track.manager.dispatcher.OptimalDispatcher;
+
 public class OptimalDispatcherTest {
 
     private Dispatcher dispatcher;
@@ -94,6 +97,6 @@ public class OptimalDispatcherTest {
         List<Event> events = List.of(talk1, talk2, talk3, talk4, talk5, talk6, talk7, talk8, talk9, talk10);
 
         Track optimalTrack = dispatcher.dispatch(events);
-        assertEquals(Duration.ofHours(3), optimalTrack.length());
+        assertEquals(LocalTime.of(12, 0), optimalTrack.end());
     }
 }

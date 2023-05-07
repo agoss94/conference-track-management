@@ -12,12 +12,14 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import com.github.agoss94.track.manager.io.InputReader;
+
 public class TextInputReaderTest {
 
     @Test
     void readInput() throws IOException, URISyntaxException {
         Path pathToFile = Paths.get(TextInputReaderTest.class.getResource("Events.txt").toURI());
-        TextInputReader reader = new TextInputReader();
+        InputReader reader = new InputReader();
         List<Event> expected =List.of(
                 new Event("Writing Fast Tests Against Enterprise Rails", Duration.ofMinutes(60)),
                 new Event("Overdoing it in Python", Duration.ofMinutes(45)),
