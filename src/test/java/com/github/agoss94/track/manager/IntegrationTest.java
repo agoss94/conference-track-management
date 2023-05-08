@@ -15,6 +15,7 @@ public class IntegrationTest extends AbstractTester {
     static void before() throws IOException, URISyntaxException {
         TrackManager.main(new String[] { RESOURCES.resolve("Conference.txt").toAbsolutePath().toString() });
         TrackManager.main(new String[] { RESOURCES.resolve("Conference2.txt").toAbsolutePath().toString(), "-optimal" });
+        TrackManager.main(new String[] { RESOURCES.resolve("Conference3.txt").toAbsolutePath().toString()});
     }
 
     @Test
@@ -25,6 +26,11 @@ public class IntegrationTest extends AbstractTester {
     @Test
     void integrationTestOptimalMode() throws URISyntaxException {
         assertTrue(Files.exists(RESOURCES.resolve("Conference2-timetable.txt")));
+    }
+
+    @Test
+    void integrationTestMoreEvents() throws URISyntaxException {
+        assertTrue(Files.exists(RESOURCES.resolve("Conference3-timetable.txt")));
     }
 
 }

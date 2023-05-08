@@ -25,3 +25,12 @@ Track 2:
 16:15 User Interface CSS in Rails Apps 30min 
 17:00 Networking Event 
 
+Track 3:
+09:00 More Talks 60min 
+10:00 I can say so much 60min 
+11:00 I can say so much more 60min 
+12:00 Lunch 60min 
+13:00 This is not the end 180min 
+16:00 Finally done 45min 
+17:00 Networking Event 
+

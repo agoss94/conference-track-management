@@ -40,23 +40,25 @@ public class LazyConferenceDispatcherTest {
         Track track =  dispatcher.dispatch(events);
         Event talk1 = track.get(LocalTime.of(9, 0));
         Event talk2 = track.get(LocalTime.of(10, 0));
-        Event talk3 = track.get(LocalTime.of(11, 0));
+        Event talk3 = track.get(LocalTime.of(10, 45));
         Event lunch = track.get(LocalTime.of(12, 0));
         Event talk4 = track.get(LocalTime.of(13, 0));
-        Event talk5 = track.get(LocalTime.of(14, 0));
-        Event talk6 = track.get(LocalTime.of(15, 0));
-        Event talk7 = track.get(LocalTime.of(15, 45));
-        Event talk8 = track.get(LocalTime.of(16, 30));
+        Event talk5 = track.get(LocalTime.of(13, 45));
+        Event talk6 = track.get(LocalTime.of(13, 50));
+        Event talk7 = track.get(LocalTime.of(14, 50));
+        Event talk8 = track.get(LocalTime.of(15, 35));
+        Event talk9 = track.get(LocalTime.of(16, 05));
         Event networking = track.get(LocalTime.of(17, 0));
         assertEquals("Writing Fast Tests Against Enterprise Rails", talk1.getTitle());
-        assertEquals("Communicating Over Distance", talk2.getTitle());
-        assertEquals("Rails Magic", talk3.getTitle());
+        assertEquals("Overdoing it in Python", talk2.getTitle());
+        assertEquals("Lua for the Masses", talk3.getTitle());
         assertEquals("Lunch", lunch.getTitle());
-        assertEquals("Ruby on Rails", talk4.getTitle());
-        assertEquals("Ruby on Rails Legacy App Maintenance", talk5.getTitle());
-        assertEquals("Overdoing it in Python", talk6.getTitle());
-        assertEquals("Ruby Errors from Mismatched Gem Versions", talk7.getTitle());
-        assertEquals("Lua for the Masses", talk8.getTitle());
+        assertEquals("Common Ruby Errors", talk4.getTitle());
+        assertEquals("Rails for Python Developers", talk5.getTitle());
+        assertEquals("Communicating Over Distance", talk6.getTitle());
+        assertEquals("Accounting-Driven Development", talk7.getTitle());
+        assertEquals("Woah", talk8.getTitle());
+        assertEquals("Sit Down and Write", talk9.getTitle());
         assertEquals("Networking Event", networking.getTitle());
     }
 
