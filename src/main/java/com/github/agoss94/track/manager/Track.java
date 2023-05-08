@@ -26,12 +26,14 @@ public class Track extends AbstractMap<LocalTime, Event> {
     }
 
     /**
-     * Associates the start time with the given event. Returns the previous mapping
-     * for the key or {@code null} if none was present.
+     * Associates the start time with the given event. The method always returns
+     * {@code null} in order to adhere to the {@link Map} interface. It is not
+     * possible to add an event to the map, which overlaps with a previous or later
+     * event in which case an exception is thrown.
      *
      * @param start the start time.
      * @param e     the event.
-     * @return the previously associated event.
+     * @return {@code null}
      * @throws NullPointerException  if the start time or event is {@code null}.
      * @throws IllegalStateException if a previous event still blocks the start time
      *                               or if a future event starts before the given

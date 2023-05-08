@@ -28,6 +28,9 @@ public class OptimalConferenceDispatcher implements Dispatcher {
     @Override
     public Track dispatch(Collection<Event> c) {
         Objects.requireNonNull(c);
+        if(c.stream().anyMatch(e -> e.getDuration().compareTo(Duration.ofHours(4)) > 0 )) {
+            throw new IllegalArgumentException("One of the events is longer than 4 hours!");
+        }
         Track track = new Track();
         Set<Event> events = new HashSet<>(c);
 

@@ -5,6 +5,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import com.github.agoss94.track.manager.Event;
@@ -36,9 +37,10 @@ public class LazyConferenceDispatcher implements Dispatcher {
      */
     @Override
     public Track dispatch(Collection<Event> c) {
-        events = new ArrayList<>(c);
-        // Sorting ensures that the longest events are dispatched first.
-        events.sort(Event.COMPARATOR.reversed());
+        Objects.requireNonNull(c);
+        if(c.stream().anyMatch(e -> e.getDuration().compareTo(Duration.ofHours(4)) > 0 )) {
+            throw new IllegalArgumentException("One of the events is longer than 4 hours!");
+        }
 
         // Fill in fixed Events.
         track = new Track();
@@ -46,6 +48,7 @@ public class LazyConferenceDispatcher implements Dispatcher {
         track.put(LocalTime.of(17, 0), new Event("Networking Event"));
 
         time = LocalTime.of(9, 0);
+        events = new ArrayList<>(c);
         while (time.isBefore(LocalTime.MAX)) {
             dispatchEvent();
         }
