@@ -10,7 +10,7 @@ import java.util.Set;
 import com.github.agoss94.track.manager.Event;
 import com.github.agoss94.track.manager.Track;
 
-public class ConferenceDispatcher implements Dispatcher {
+public class OptimalConferenceDispatcher implements Dispatcher {
 
     /**
      * Dispatcher for finding a optimal morning session.

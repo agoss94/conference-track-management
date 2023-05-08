@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import com.github.agoss94.track.manager.dispatcher.ConferenceDispatcher;
+import com.github.agoss94.track.manager.dispatcher.OptimalConferenceDispatcher;
 import com.github.agoss94.track.manager.dispatcher.Dispatcher;
 
 public class ConferenceDispatcherTest {
@@ -36,7 +36,7 @@ public class ConferenceDispatcherTest {
                                 new Event("A World Without HackerNews", Duration.ofMinutes(30)),
                                 new Event("User Interface CSS in Rails Apps", Duration.ofMinutes(30))
                             );
-        Dispatcher dispatcher = new ConferenceDispatcher();
+        Dispatcher dispatcher = new OptimalConferenceDispatcher();
         Track track =  dispatcher.dispatch(events);
         Event lunch = track.get(LocalTime.of(12, 0));
         Event networking = track.get(LocalTime.of(17, 0));

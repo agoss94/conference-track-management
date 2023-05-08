@@ -16,10 +16,12 @@ import com.github.agoss94.track.manager.io.InputReader;
 public class TrackManager {
 
     public static void main(String[] args) throws IOException {
+        //Read input
         Path pathToFile = Paths.get(args[0]);
         InputReader reader = new InputReader();
         Collection<Event> events = reader.readFile(pathToFile);
 
+        //Dispatch Events
         List<Track> tracks = new ArrayList<>();
         LazyConferenceDispatcher dispatcher = new LazyConferenceDispatcher();
         while (!events.isEmpty()) {
@@ -28,6 +30,7 @@ public class TrackManager {
             tracks.add(track);
         }
 
+        //Write output
         Path outputFile = pathToFile.resolveSibling("timetable.txt");
         BufferedWriter writer = Files.newBufferedWriter(outputFile, StandardCharsets.UTF_8);
         for (int i = 0; i < tracks.size(); i++) {
