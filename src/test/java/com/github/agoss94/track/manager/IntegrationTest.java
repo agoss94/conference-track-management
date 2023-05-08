@@ -5,24 +5,20 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-public class IntegrationTest {
+public class IntegrationTest extends AbstractTester {
 
-    private static final Path PATH = Paths.get(System.getProperty("user.dir"), "src", "test", "resources", "Events.txt");
-
-    @BeforeEach
-    void befor() throws IOException, URISyntaxException {
-        TrackManager.main(new String[] { PATH.toAbsolutePath().toString() });
+    @BeforeAll
+    static void before() throws IOException, URISyntaxException {
+        TrackManager.main(new String[] { RESOURCES.resolve("Events.txt").toAbsolutePath().toString() });
     }
 
     @Test
     void integrationTest() throws URISyntaxException {
-        assertTrue(Files.exists(PATH.resolveSibling("timetable.txt")));
+        assertTrue(Files.exists(RESOURCES.resolve("timetable.txt")));
     }
 
 }

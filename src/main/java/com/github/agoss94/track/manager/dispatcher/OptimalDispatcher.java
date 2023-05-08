@@ -34,7 +34,14 @@ import com.github.agoss94.track.manager.Track;
  * constructed solutions.</li>
  * </ol>
  * The time complexity of the algorithm is O(2^n), but is more performant if
- * already a large subsets are possible solutions.
+ * already a large subsets are possible solutions. One should also note that the
+ * solution is unstable. Which solution might be picked can vary from run to
+ * run.
+ * <p>
+ * In principle the algorithm is a solution of the subset sum problem.
+ *
+ * @see <a href="https://en.wikipedia.org/wiki/Subset_sum_problem">Subset sum
+ *      problem</a>.
  */
 public class OptimalDispatcher implements Dispatcher {
 
@@ -49,7 +56,8 @@ public class OptimalDispatcher implements Dispatcher {
     private final Duration limit;
 
     /**
-     * Each array in the set correspondences with a subset of events.
+     * Each array of length n (number = events.size()) in the set correspondences
+     * with a subset of events.
      */
     private Set<int[]> subsets;
 
@@ -74,9 +82,8 @@ public class OptimalDispatcher implements Dispatcher {
     }
 
     /**
-     * The dispatcher looks for an optimal solution by discarding as few events as
-     * possible. No guarantee is given which solution is picked if multiple such
-     * solutions exist. We assume that all events have finite duration.
+     * The dispatcher looks for an optimal solution. No guarantee is given which
+     * solution is picked, if multiple such solutions exist only that it is optimal.
      *
      * @param a collection of events.
      * @return a track with an optimal solution under the given time constrain.
@@ -85,8 +92,11 @@ public class OptimalDispatcher implements Dispatcher {
     @Override
     public Track dispatch(Collection<Event> collection) {
         Objects.requireNonNull(collection);
-        events = Collections.unmodifiableList(new ArrayList<>(collection));
 
+        events = Collections.unmodifiableList(new ArrayList<>(collection));
+        if (events.stream().anyMatch(Event::isOpenEnd)) {
+            throw new IllegalArgumentException("All Events must be of fixed duration.");
+        }
         // The limit is to small for the collection of events.
         if (events.stream().noneMatch(e -> limit.compareTo(e.getDuration()) >= 1)) {
             throw new IllegalArgumentException("No solution possible.");

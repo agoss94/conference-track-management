@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.Duration;
 import java.util.Collection;
 import java.util.List;
@@ -14,11 +13,11 @@ import org.junit.jupiter.api.Test;
 
 import com.github.agoss94.track.manager.io.InputReader;
 
-public class TextInputReaderTest {
+public class TextInputReaderTest extends AbstractTester {
 
     @Test
     void readInput() throws IOException, URISyntaxException {
-        Path pathToFile = Paths.get(TextInputReaderTest.class.getResource("Events.txt").toURI());
+        Path pathToFile = RESOURCES.resolve("Events.txt");
         InputReader reader = new InputReader();
         List<Event> expected =List.of(
                 new Event("Writing Fast Tests Against Enterprise Rails", Duration.ofMinutes(60)),
