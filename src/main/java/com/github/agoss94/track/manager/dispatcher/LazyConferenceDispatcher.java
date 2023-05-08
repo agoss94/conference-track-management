@@ -51,6 +51,7 @@ public class LazyConferenceDispatcher implements Dispatcher {
         track.put(LocalTime.of(12, 0), new Event("Lunch", Duration.ofHours(1)));
         track.put(LocalTime.of(17, 0), new Event("Networking Event"));
 
+        //Dispatch the rest for as long as possible.
         time = LocalTime.of(9, 0);
         events = new ArrayList<>(c);
         while (time.isBefore(LocalTime.MAX)) {

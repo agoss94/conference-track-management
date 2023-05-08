@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.Duration;
 import java.util.Collection;
 import java.util.List;
@@ -14,7 +15,12 @@ import org.junit.jupiter.api.Test;
 
 import com.github.agoss94.track.manager.io.InputReader;
 
-public class InputReaderTest extends AbstractTester {
+public class InputReaderTest {
+
+    /**
+     * Path for all test resources.
+     */
+    public static final Path RESOURCES = Paths.get(System.getProperty("user.dir"), "src", "test", "resources");
 
     @Test
     void throwsExceptionForNonTextfiles() {

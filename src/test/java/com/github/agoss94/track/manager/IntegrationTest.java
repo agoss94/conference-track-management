@@ -5,11 +5,18 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-public class IntegrationTest extends AbstractTester {
+public class IntegrationTest {
+
+    /**
+     * Path for all test resources.
+     */
+    public static final Path RESOURCES = Paths.get(System.getProperty("user.dir"), "src", "test", "resources");
 
     @BeforeAll
     static void before() throws IOException, URISyntaxException {
