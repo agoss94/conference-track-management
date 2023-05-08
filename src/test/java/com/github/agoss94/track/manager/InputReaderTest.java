@@ -1,6 +1,7 @@
 package com.github.agoss94.track.manager;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -14,6 +15,13 @@ import org.junit.jupiter.api.Test;
 import com.github.agoss94.track.manager.io.InputReader;
 
 public class InputReaderTest extends AbstractTester {
+
+    @Test
+    void throwsExceptionForNonTextfiles() {
+        InputReader reader = new InputReader();
+        IOException e = assertThrows(IOException.class, () -> reader.readFile(RESOURCES.resolve("test.java")));
+        assertEquals("Input file is no text file.", e.getMessage());
+    }
 
     @Test
     void readInput() throws IOException, URISyntaxException {

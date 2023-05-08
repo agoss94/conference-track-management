@@ -34,11 +34,15 @@ public class LazyConferenceDispatcher implements Dispatcher {
 
     /**
      * {@inheritDoc}
+     *
+     * @throws NullPointerException     if the given collection is {@code null}.
+     * @throws IllegalArgumentException if any of the Events is longer than 4
+     *                                  hoursor open end.
      */
     @Override
     public Track dispatch(Collection<Event> c) {
         Objects.requireNonNull(c);
-        if(c.stream().anyMatch(e -> e.getDuration().compareTo(Duration.ofHours(4)) > 0 )) {
+        if (c.stream().anyMatch(e -> isEventToLong(e))) {
             throw new IllegalArgumentException("One of the events is longer than 4 hours!");
         }
 
@@ -54,6 +58,16 @@ public class LazyConferenceDispatcher implements Dispatcher {
         }
 
         return track;
+    }
+
+    /**
+     * Returns {@code true} if the end is open end or longer than 5 hours.
+     *
+     * @param e the given event.
+     * @return {@code true} if the end is open end or longer than 5 hours.
+     */
+    private boolean isEventToLong(Event e) {
+        return e.isOpenEnd() || e.getDuration().compareTo(Duration.ofHours(4)) > 0;
     }
 
     /**
