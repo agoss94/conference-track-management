@@ -13,11 +13,11 @@ import org.junit.jupiter.api.Test;
 
 import com.github.agoss94.track.manager.io.InputReader;
 
-public class TextInputReaderTest extends AbstractTester {
+public class InputReaderTest extends AbstractTester {
 
     @Test
     void readInput() throws IOException, URISyntaxException {
-        Path pathToFile = RESOURCES.resolve("Events.txt");
+        Path pathToFile = RESOURCES.resolve("Conference.txt");
         InputReader reader = new InputReader();
         List<Event> expected =List.of(
                 new Event("Writing Fast Tests Against Enterprise Rails", Duration.ofMinutes(60)),

@@ -31,18 +31,18 @@ public class OptimalConferenceDispatcher implements Dispatcher {
         Track track = new Track();
         Set<Event> events = new HashSet<>(c);
 
+        //Morning events
+        Track morningsSession = dispatcherMorning.dispatch(events);
+        track.putAll(morningsSession);
+        track.put(LocalTime.of(12, 0), new Event("Lunch", Duration.ofHours(1)));
+        events.removeAll(morningsSession.values());
+
         //Afternoon events
         Track afternoonSession = dispatcherAfternoon.dispatch(events);
         track.putAll(afternoonSession);
         LocalTime end = track.end();
         LocalTime networkingStart = end.isBefore(LocalTime.of(16, 0)) ? LocalTime.of(16, 0) : end;
         track.put(networkingStart, new Event("Networking Event"));
-        events.removeAll(afternoonSession.values());
-
-        //Morning events
-        Track morningsSession = dispatcherMorning.dispatch(events);
-        track.putAll(morningsSession);
-        track.put(LocalTime.of(12, 0), new Event("Lunch", Duration.ofHours(1)));
 
         return track;
     }

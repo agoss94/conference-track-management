@@ -24,6 +24,9 @@ public class InputReader {
      */
     private static final Pattern PATTERN_DIGITS = Pattern.compile("\\d+");
 
+    /**
+     * Pattern for the word lightning.
+     */
     private static final Pattern PATTERN_LIGHTNING = Pattern.compile("lightning");
 
     /**
@@ -35,23 +38,26 @@ public class InputReader {
      * @throws IOException
      */
     public Collection<Event> readFile(Path pathToFile) throws IOException {
+        String fileName = pathToFile.getFileName().toString();
+        if (!fileName.endsWith(".txt")) {
+            throw new IOException("Input file is no text file.");
+        }
+
         List<String> lines = Files.readAllLines(pathToFile);
         if (lines.isEmpty()) {
             return Collections.emptyList();
         }
         List<Event> events = new ArrayList<>();
         for (String line : lines) {
-            if (!line.isBlank()) {
-                Matcher matcherDigits = PATTERN_DIGITS.matcher(line);
-                Matcher matcherLightning = PATTERN_LIGHTNING.matcher(line);
-                if (matcherDigits.find()) {
-                    int min = Integer.parseInt(matcherDigits.group());
-                    String title = line.substring(0, matcherDigits.start() - 1);
-                    events.add(new Event(title, Duration.ofMinutes(min)));
-                } else if(matcherLightning.find()) {
-                    String title = line.substring(0, matcherLightning.start() - 1);
-                    events.add(new Event(title, Duration.ofMinutes(5)));
-                }
+            Matcher matcherDigits = PATTERN_DIGITS.matcher(line);
+            Matcher matcherLightning = PATTERN_LIGHTNING.matcher(line);
+            if (matcherDigits.find()) {
+                int min = Integer.parseInt(matcherDigits.group());
+                String title = line.substring(0, matcherDigits.start() - 1);
+                events.add(new Event(title, Duration.ofMinutes(min)));
+            } else if (matcherLightning.find()) {
+                String title = line.substring(0, matcherLightning.start() - 1);
+                events.add(new Event(title, Duration.ofMinutes(5)));
             }
         }
         return events;
