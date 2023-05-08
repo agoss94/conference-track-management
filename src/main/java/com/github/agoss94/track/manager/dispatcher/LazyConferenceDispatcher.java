@@ -53,6 +53,9 @@ public class LazyConferenceDispatcher implements Dispatcher {
         return track;
     }
 
+    /**
+     * Dispatch a event for the next free slot.
+     */
     private void dispatchEvent() {
         // Ceiling key because the end of the last event can also be the beginning of
         // the next.
