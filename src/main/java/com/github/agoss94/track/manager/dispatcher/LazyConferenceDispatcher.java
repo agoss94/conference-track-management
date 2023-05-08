@@ -51,7 +51,7 @@ public class LazyConferenceDispatcher implements Dispatcher {
         track.put(LocalTime.of(12, 0), new Event("Lunch", Duration.ofHours(1)));
         track.put(LocalTime.of(17, 0), new Event("Networking Event"));
 
-        //Dispatch the rest for as long as possible.
+        // Dispatch the rest for as long as possible.
         time = LocalTime.of(9, 0);
         events = new ArrayList<>(c);
         while (time.isBefore(LocalTime.MAX)) {
@@ -79,7 +79,7 @@ public class LazyConferenceDispatcher implements Dispatcher {
         // the next.
         LocalTime nextEvent = track.ceilingKey(time);
         Duration timeUntilNext = Duration.between(time, nextEvent);
-        Optional<Event> event = events.stream().filter(e -> e.getDuration().compareTo(timeUntilNext) <= 0).findFirst();
+        Optional<Event> event = events.stream().filter(e -> fitsInBetween(timeUntilNext, e)).findFirst();
         if (event.isPresent()) {
             Event e = event.get();
             track.put(time, e);
@@ -92,5 +92,18 @@ public class LazyConferenceDispatcher implements Dispatcher {
             // event. We jump to the end of the next.
             time = track.endPrevious(nextEvent);
         }
+    }
+
+    /**
+     * Return {@code true} if the duration of the event is shorter than the given
+     * duration.
+     *
+     * @param timeUntilNext the time until the next event.
+     * @param e the given event.
+     * @return {@code true} if the duration of the event is shorter than the given
+     * duration.
+     */
+    private boolean fitsInBetween(Duration timeUntilNext, Event e) {
+        return e.getDuration().compareTo(timeUntilNext) <= 0;
     }
 }
